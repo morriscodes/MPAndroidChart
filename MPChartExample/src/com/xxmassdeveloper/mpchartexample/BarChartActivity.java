@@ -181,6 +181,15 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
                 mChart.invalidate();
                 break;
             }
+            case R.id.actionToggleBarRounded: {
+                if(mChart.isDrawBarRoundedEnabled()) {
+                    mChart.setDrawBarRounded(false);
+                } else {
+                    mChart.setDrawBarRounded(true);
+                }
+                mChart.invalidate();
+                break;
+            }
             case R.id.animateX: {
                 mChart.animateX(3000);
                 break;

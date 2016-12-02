@@ -36,6 +36,11 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      */
     private boolean mDrawBarShadow = false;
 
+    /**
+     * if set to true, bars will be drawn with rounded top and bottom
+     */
+    private boolean mRounded = false;
+
     private boolean mFitBars = false;
 
     public BarChart(Context context) {
@@ -186,6 +191,20 @@ public class BarChart extends BarLineChartBase<BarData> implements BarDataProvid
      */
     public boolean isDrawBarShadowEnabled() {
         return mDrawBarShadow;
+    }
+
+    /**
+     * If set to true, round the corners of the bar
+     *
+     * @param enabled
+     */
+    public void setDrawBarRounded(boolean enabled) {
+        mRounded = enabled;
+    }
+
+    @Override
+    public boolean isDrawBarRoundedEnabled() {
+        return mRounded;
     }
 
     /**

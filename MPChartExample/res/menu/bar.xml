@@ -41,5 +41,9 @@
         android:id="@+id/actionToggleBarBorders"
         android:title="Show Bar Borders">
     </item>
+    <item
+        android:id="@+id/actionToggleBarRounded"
+        android:title="Show Bar Rounded">
+    </item>
 
 </menu>

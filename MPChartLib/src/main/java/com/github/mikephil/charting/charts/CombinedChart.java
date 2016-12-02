@@ -42,6 +42,11 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
      */
     private boolean mDrawBarShadow = false;
 
+    /**
+     * if set to true, bars will be drawn with rounded top and bottom
+     */
+    private boolean mRounded = false;
+
     protected DrawOrder[] mDrawOrder;
 
     /**
@@ -202,6 +207,20 @@ public class CombinedChart extends BarLineChartBase<CombinedData> implements Com
     @Override
     public boolean isHighlightFullBarEnabled() {
         return mHighlightFullBarEnabled;
+    }
+
+    /**
+     * If set to true, round the corners of the bar
+     *
+     * @param enabled
+     */
+    public void setDrawBarRounded(boolean enabled) {
+        mRounded = enabled;
+    }
+
+    @Override
+    public boolean isDrawBarRoundedEnabled() {
+        return mRounded;
     }
 
     /**

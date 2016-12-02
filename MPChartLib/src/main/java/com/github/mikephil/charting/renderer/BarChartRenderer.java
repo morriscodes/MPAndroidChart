@@ -161,8 +161,14 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
                 mRenderPaint.setColor(dataSet.getColor(j / 4));
             }
 
-            c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
-                    buffer.buffer[j + 3], mRenderPaint);
+            if(mChart.isDrawBarRoundedEnabled()) {
+                float corner = (mChart.getBarData().getBarWidth() / 2) * 100;
+                c.drawRoundRect(new RectF(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                                          buffer.buffer[j + 3]), corner, corner, mRenderPaint);
+            } else {
+                c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
+                           buffer.buffer[j + 3], mRenderPaint);
+            }
 
             if (drawBorder) {
                 c.drawRect(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j + 2],
@@ -380,7 +386,13 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
             setHighlightDrawPos(high, mBarRect);
 
-            c.drawRect(mBarRect, mHighlightPaint);
+            if(mChart.isDrawBarRoundedEnabled()) {
+                float corner = (mChart.getBarData().getBarWidth() / 2) * 100;
+                c.drawRoundRect(mBarRect, corner, corner, mHighlightPaint);
+            } else {
+                c.drawRect(mBarRect, mHighlightPaint);
+            }
+
         }
     }
 
