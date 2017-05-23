@@ -2,6 +2,7 @@
 package com.xxmassdeveloper.mpchartexample;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
@@ -259,6 +260,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         } else {
             set1 = new BarDataSet(yVals1, "The year 2017");
             set1.setColors(ColorTemplate.MATERIAL_COLORS);
+            set1.setGradientColor(Color.WHITE);
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(set1);

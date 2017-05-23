@@ -25,6 +25,8 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
 
     private int mBarBorderColor = Color.BLACK;
 
+    private Integer mGradientColor = null;
+
     /**
      * the alpha value used to draw the highlight indicator bar
      */
@@ -234,5 +236,13 @@ public class BarDataSet extends BarLineScatterCandleBubbleDataSet<BarEntry> impl
     @Override
     public String[] getStackLabels() {
         return mStackLabels;
+    }
+
+    public Integer getGradientColor() {
+        return mGradientColor;
+    }
+
+    public void setGradientColor(Integer mGradientColor) {
+        this.mGradientColor = mGradientColor;
     }
 }

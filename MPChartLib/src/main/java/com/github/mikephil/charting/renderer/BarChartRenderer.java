@@ -3,9 +3,12 @@ package com.github.mikephil.charting.renderer;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import android.graphics.Shader;
+import android.util.Log;
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.buffer.BarBuffer;
 import com.github.mikephil.charting.data.BarData;
@@ -141,12 +144,6 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
         trans.pointValuesToPixel(buffer.buffer);
 
-        final boolean isSingleColor = dataSet.getColors().size() == 1;
-
-        if (isSingleColor) {
-            mRenderPaint.setColor(dataSet.getColor());
-        }
-
         for (int j = 0; j < buffer.size(); j += 4) {
 
             if (!mViewPortHandler.isInBoundsLeft(buffer.buffer[j + 2]))
@@ -155,7 +152,10 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
             if (!mViewPortHandler.isInBoundsRight(buffer.buffer[j]))
                 break;
 
-            if (!isSingleColor) {
+            if (dataSet.getGradientColor()!= null) {
+                 mRenderPaint.setShader(new LinearGradient(buffer.buffer[j], buffer.buffer[j + 1], buffer.buffer[j],
+                                                          buffer.buffer[j + 3], dataSet.getColor(j / 4), dataSet.getGradientColor(), Shader.TileMode.CLAMP));
+            } else {
                 // Set the color for the currently drawn value. If the index
                 // is out of bounds, reuse colors.
                 mRenderPaint.setColor(dataSet.getColor(j / 4));
