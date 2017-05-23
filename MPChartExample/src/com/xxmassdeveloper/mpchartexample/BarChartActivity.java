@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.Legend.LegendForm;
 import com.github.mikephil.charting.components.Legend.LegendPosition;
@@ -25,6 +26,7 @@ import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -43,7 +45,7 @@ import java.util.ArrayList;
 public class BarChartActivity extends DemoBase implements OnSeekBarChangeListener,
         OnChartValueSelectedListener {
 
-    protected BarChart mChart;
+    protected CombinedChart mChart;
     private SeekBar mSeekBarX, mSeekBarY;
     private TextView tvX, tvY;
 
@@ -60,7 +62,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         mSeekBarX = (SeekBar) findViewById(R.id.seekBar1);
         mSeekBarY = (SeekBar) findViewById(R.id.seekBar2);
 
-        mChart = (BarChart) findViewById(R.id.chart1);
+        mChart = (CombinedChart) findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
 
         mChart.setDrawBarShadow(false);
@@ -175,8 +177,6 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
                 break;
             }
             case R.id.actionToggleBarBorders: {
-                for (IBarDataSet set : mChart.getData().getDataSets())
-                    ((BarDataSet) set).setBarBorderWidth(set.getBarBorderWidth() == 1.f ? 0.f : 1.f);
 
                 mChart.invalidate();
                 break;
@@ -268,7 +268,13 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
             data.setValueTypeface(mTfLight);
             data.setBarWidth(0.9f);
 
-            mChart.setData(data);
+            XAxis xAxis = mChart.getXAxis();
+            xAxis.setAxisMinimum(data.getXMin() - .5f);
+            xAxis.setAxisMaximum(data.getXMax() + .5f);
+
+            CombinedData data2 = new CombinedData();
+            data2.setData(data);
+            mChart.setData(data2);
         }
     }
 
@@ -282,7 +288,6 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
             return;
 
         RectF bounds = mOnValueSelectedRectF;
-        mChart.getBarBounds((BarEntry) e, bounds);
         MPPointF position = mChart.getPosition(e, AxisDependency.LEFT);
 
         Log.i("bounds", bounds.toString());
